@@ -1,0 +1,41 @@
+
+<div class="toolbar" role="banner">
+
+  <img
+    width="190"
+    alt="Lider"
+    src="https://www.lider.cl/supermercado/contentassets/img/icons/lider-logo.svg"
+  />
+
+  <form  [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)" >
+    <input type="text" id="name" class="search-input"  formControlName="name"  size="150px"  name="name" placeholder="¿Qué producto buscas hoy?" id="searchtextinput" autocomplete="off">
+    <button type="button" hidden id="searchsubmitbutton" class="search-btn"><i class="icon-new icon-search"></i></button>
+  </form>
+
+</div>
+<div class="content" role="main">
+
+  <!-- Resources -->
+  <div *ngIf="searchName != null && searchName != ''" class="search-tittle"><p> Resultados para <b> {{searchName}} </b> : </p></div>
+
+  <div class="card-container">
+    <div class="card card-small"
+         *ngFor="let product of foundProductResponse.foundProducts">
+      <div class="picture">
+
+        <img
+          width="190"
+          alt="Angular Logo"
+          src="https://{{product.image}}"
+        />
+      </div>
+      <div class="title"><p><b>{{product.brand}}</b> {{ product.description}}</p></div>
+      <div *ngIf="foundProductResponse.palindromo" class="offert-price"><p><b>$ {{product.price / 2}}</b> <span class="offer-percentage"> <b>  %50 </b></span></p></div>
+      <div *ngIf="!foundProductResponse.palindromo" class="price">$ {{product.price}}</div>
+      <div *ngIf="foundProductResponse.palindromo" class="price-through">$ {{product.price}}</div>
+    </div>
+  </div>
+
+  <footer>
+  </footer>
+</div>
